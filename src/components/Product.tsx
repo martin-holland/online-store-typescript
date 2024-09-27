@@ -1,3 +1,7 @@
+import { Button } from "react-bootstrap";
+import { addToCart } from "../features/productSlice";
+import { useAppDispatch } from "../hooks/hooks";
+
 interface Rating {
   rate: number;
   count: number;
@@ -13,6 +17,12 @@ interface IProps {
 
 export default function Product(props: IProps) {
   const { image, title, price, rating, description } = props;
+  const product = props;
+  const dispatch = useAppDispatch();
+
+  const handleAddProduct = () => {
+    dispatch(addToCart(product));
+  };
 
   return (
     <div>
@@ -25,11 +35,15 @@ export default function Product(props: IProps) {
         </article>
         <article className="Detail_info">
           <span className="Detail_price">${price}</span>
+        </article>
+        <article className="Detail_info">
           <span className="Detail_rate">{rating.rate}</span>
         </article>
         <article className="Detail_description">
           <p>{description}</p>
         </article>
+
+        <Button onClick={handleAddProduct}>Add Product to Cart</Button>
       </section>
     </div>
   );
